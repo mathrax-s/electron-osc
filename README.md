@@ -28,19 +28,14 @@ contextBridge.exposeInMainWorld(
     }
     client.send(message);
   },
-  receive: (_address, _msg) => {
-    let res = [];
-    if (_msg[0] === _address) {
-      for (let i = 0; i < (_msg.length - 1); i++) {
-        res[i] = _msg[i + 1];
-      }
-    }
-    return res;
-  }
+
+~~省略~~
+
 })
 ~~~
 
-## preload.jsから、renderer.jsへ送信する場合
+## OSCデータを受信する場合
+### preload.jsから、renderer.jsへ送信する
 こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
 
 CustomEventを定義し、そのCustomイベントに受信したメッセージを追加します。そのあと、dispatchEventで、「contaner」という名前のエレメントに、イベントを発動させます。
