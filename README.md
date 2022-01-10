@@ -21,7 +21,7 @@ osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにある�
 ### renderer.jsから、preload.jsへ送信する
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
 
-<strong>preload.js</strong>
+以下、preload.jsの中です。
 
 ~~~javascript:preload.js
 const { contextBridge, ipcRenderer } = require('electron')
@@ -45,7 +45,8 @@ contextBridge.exposeInMainWorld(
 こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
 preload.js、renderer.js、index.htmlの3つのファイルが関係しています。
 
-preload.js
+以下、preload.jsの中です。
+
 ~~~javascript:preload.js
 // OSC受信時に呼ばれる関数
 oscServer.on('message', function (msg) {
@@ -60,7 +61,8 @@ oscServer.on('message', function (msg) {
 });
 ~~~
 
-renderer.js
+renderer.jsの中です。
+
 ~~~javascript:renderer.js
 
 const s = (p) => {
@@ -93,7 +95,8 @@ container.addEventListener("osc_rcv", (event) => {
 
 index.htmlで、bodyのdivタグにID名「container」とつけてあります。
 
-index.html
+以下、index.htmlの中です。
+
 ~~~html:index.html
 <body>
   <div id='container'></div>
