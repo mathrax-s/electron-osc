@@ -8,9 +8,6 @@
 
 const s = (p) => {
 
-    // OSCのAPI(preload.jsでcontextBridgeとして定義)
-    let oscAPI = window.oscAPI;
-
     let x = 0;
     let y = 0;
 
@@ -21,6 +18,8 @@ const s = (p) => {
     p.draw = () => {
         p.background(0, 10);
 
+        // OSCのAPI(preload.jsでcontextBridgeとして定義)
+        const oscAPI = window.oscAPI;
         // OSCデータを送信する
         oscAPI.send('/test', [p.mouseX, p.mouseY]);
 
@@ -31,6 +30,9 @@ const s = (p) => {
 
     // OSCデータを受信する
     p.oscReceive = (msg) => {
+        // OSCのAPI(preload.jsでcontextBridgeとして定義)
+        const oscAPI = window.oscAPI;
+        // OSCアドレスが一致する場合、dataが入る
         let data = oscAPI.receive("/test", msg);
         x = data[0];
         y = data[1];
