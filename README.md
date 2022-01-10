@@ -78,6 +78,23 @@ oscServer.on('message', function (msg) {
   }));
 
 });
+
+const { contextBridge, ipcRenderer } = require('electron')
+contextBridge.exposeInMainWorld(
+  "oscAPI", {
+
+  ~~省略~~
+
+  receive: (_address, _msg) => {
+    let res = [];
+    if (_msg[0] === _address) {
+      for (let i = 0; i < (_msg.length - 1); i++) {
+        res[i] = _msg[i + 1];
+      }
+    }
+    return res;
+  }
+})
 ~~~
 
 以下、renderer.jsの中です。
@@ -88,8 +105,11 @@ const s = (p) => {
 
     ~~省略~~
 
-    // OSCデータを受信する
+    // OSCデータを受信すると呼ばれる関数
     p.oscReceive = (msg) => {
+        // OSCのAPI(preload.jsでcontextBridgeとして定義)
+        const oscAPI = window.oscAPI;
+        // OSCアドレスが一致する場合、dataが入る
         let data = oscAPI.receive("/test", msg);
         x = data[0];
         y = data[1];
