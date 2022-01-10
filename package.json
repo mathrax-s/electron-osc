@@ -1,18 +1,16 @@
 {
-  "name": "electron-quick-start",
+  "name": "electron-osc",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/mathrax-s/electron-osc",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "OpenSoundColtol",
+    "osc"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
