@@ -13,18 +13,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 const { Server, Client, Message } = require('node-osc');
-
 // OSCサーバー設定
 const oscServer = new Server(3333, '0.0.0.0');
 // OSCクライアント設定
 const client = new Client('127.0.0.1', 3333);
 
-
+// OSC受信時に呼ばれる関数
 oscServer.on('message', function (msg) {
+
+  // 「container」に、カスタムイベントを発火する
+  // カスタムイベントには、oscで受信したメッセージを追加しておく
   const targetElement = document.getElementById('container')
   targetElement.dispatchEvent(new CustomEvent("osc_rcv", {
     detail: { oscMsg: msg }
   }));
+
 });
 
 const { contextBridge, ipcRenderer } = require('electron')

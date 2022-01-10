@@ -6,6 +6,11 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 
 ここにあるソースは、preload.jsで動作するnode-oscを、renderer.jsで使えるようにしたものです。まだ試作中で、効率が悪いかもしれません。
 
+
+renderer.jsにはp5jsのコードがあります。
+osc送信するには、preload.jsにある関数を間接的に呼び出して使います。
+osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにあるので、そこからrenderer.jsに受信したメッセージを送ります。このとき、「container」とID名のついたエレメントを指定して、renderer.jsにアクセスしていますが、このID名のついたDIVタグがindex.htmlの中にあります。（少し散漫なのでもう少し改善したいです）
+
 <img src = "screen_capture_1.png"></img>
 
 実行すると、自分自身で、OSCサーバーとクライアントをつくります。
@@ -17,7 +22,7 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
 
 preload.js
-~~~preload.js
+~~~javascript:preload.js
 const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld(
   "oscAPI", {
@@ -38,7 +43,35 @@ contextBridge.exposeInMainWorld(
 ### preload.jsから、renderer.jsへ送信する
 こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
 
-CustomEventを定義し、そのCustomイベントに受信したメッセージを追加します。そのあと、dispatchEventで、「contaner」という名前のエレメントに、イベントを発動させます。
+preload.js
+~~~javascript:preload.js
+// OSC受信時に呼ばれる関数
+oscServer.on('message', function (msg) {
 
+  // 「container」に、カスタムイベントを発火する
+  // カスタムイベントには、oscで受信したメッセージを追加しておく
+  const targetElement = document.getElementById('container')
+  targetElement.dispatchEvent(new CustomEvent("osc_rcv", {
+    detail: { oscMsg: msg }
+  }));
+
+});
+~~~
+
+renderer.js
+~~~
+// OSC受信イベントがあったとき、
+// p5js内の「oscReceive」関数に、oscMsgを引数として渡す
+container.addEventListener("osc_rcv", (event) => {
+    app.oscReceive(event.detail.oscMsg);
+});
+~~~
+
+### p5jsインスタンスを「container」に追加しておく
+
+index.html
+~~~
+
+~~~
 「container」エレメントはindex.htmにあるdivタグに名前をつけてあり、rendered.jsでp5jsのインスタンスを登録してあります。
 
