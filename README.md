@@ -16,6 +16,7 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 ### renderer.jsから、preload.jsへ送信する
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
 
+preload.js
 ~~~preload.js
 const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld(
