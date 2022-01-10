@@ -41,6 +41,8 @@ preload.jsであれば、requireが使えるので、contextBridgeという方�
 
 renderer.js内のp5jsでは以下のように書いています。
 
+以下、renderer.jsの中です。
+
 ```javascript:rendere.js
     // OSCのAPI(preload.jsでcontextBridgeとして定義)
     const oscAPI = window.oscAPI;
@@ -73,6 +75,8 @@ contextBridge.exposeInMainWorld(
 
 renderer.js内のp5jsでは以下のように書いています。
 
+以下、renderer.jsの中です。
+
 ```javascript:rendere.js
     // OSCデータを受信すると呼ばれる関数
     p.oscReceive = (msg) => {
@@ -86,8 +90,7 @@ renderer.js内のp5jsでは以下のように書いています。
     }
 ```
 
-これはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
-preload.js、renderer.js、index.htmlの3つのファイルが関係しています。
+これはcontextBridgeではなく、node-oscの「OSC受信時で呼ばれる関数」の中で、renderer.jsへ値を渡しています。preload.js、renderer.js、index.htmlの3つのファイルが関係しています。
 
 以下、preload.jsの中です。
 
