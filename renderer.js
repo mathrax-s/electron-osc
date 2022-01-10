@@ -16,13 +16,16 @@ const s = (p) => {
 
     p.setup = () => {
         p.createCanvas(800, 400);
+        p.background(0);
     }
     p.draw = () => {
-        p.background(0);
+        p.background(0, 10);
 
         // OSCデータを送信する
         oscAPI.send('/test', [p.mouseX, p.mouseY]);
 
+        p.fill(255, 100);
+        p.noStroke();
         p.ellipse(x, y, 100, 100);
     }
 
