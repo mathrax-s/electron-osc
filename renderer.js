@@ -40,6 +40,8 @@ const s = (p) => {
 
 }
 
+// ID名'container'のエレメントを取得して、
+// p5jsインスタンスを'container'にいれる
 const container = document.getElementById('container');
 const app = new p5(s, container);
 

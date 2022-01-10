@@ -43,6 +43,7 @@ contextBridge.exposeInMainWorld(
 ## OSCデータを受信する場合
 ### preload.jsから、renderer.jsへ送信する
 こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
+preload.js、renderer.js、index.htmlの3つのファイルが関係しています。
 
 preload.js
 ~~~javascript:preload.js
@@ -60,24 +61,45 @@ oscServer.on('message', function (msg) {
 ~~~
 
 renderer.js
-~~~
+~~~javascript:renderer.js
+
+const s = (p) => {
+
+    ~~省略~~
+
+    // OSCデータを受信する
+    p.oscReceive = (msg) => {
+        let data = oscAPI.receive("/test", msg);
+        x = data[0];
+        y = data[1];
+        // console.log(data);
+    }
+}
+
+// ID名'container'のエレメントを取得して、
+// p5jsインスタンスを'container'にいれる
+const container = document.getElementById('container');
+const app = new p5(s, container);
+
 // OSC受信イベントがあったとき、
 // p5js内の「oscReceive」関数に、oscMsgを引数として渡す
 container.addEventListener("osc_rcv", (event) => {
     app.oscReceive(event.detail.oscMsg);
 });
+
 ~~~
 
 ### p5jsインスタンスを「container」に追加しておく
+
+index.htmlで、bodyのdivタグにID名「container」とつけてあります。
 
 index.html
 ~~~html:index.html
 <body>
   <div id='container'></div>
-  <!-- You can also require other files to run in this process -->
-  <script src="./p5.js"></script>
-  <script src="./renderer.js"></script>
+
+  ~~省略~~
+
 </body>
 ~~~
-「container」エレメントはindex.htmにあるdivタグに名前をつけてあり、rendered.jsでp5jsのインスタンスを登録してあります。
 
