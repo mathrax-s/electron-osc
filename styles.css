@@ -1,0 +1,10 @@
+/* styles.css */
+
+/* Add styles here to customize the appearance of your app */
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  canvas {
+    display: block;
+  }
