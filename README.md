@@ -71,8 +71,13 @@ container.addEventListener("osc_rcv", (event) => {
 ### p5jsインスタンスを「container」に追加しておく
 
 index.html
-~~~
-
+~~~html:index.html
+<body>
+  <div id='container'></div>
+  <!-- You can also require other files to run in this process -->
+  <script src="./p5.js"></script>
+  <script src="./renderer.js"></script>
+</body>
 ~~~
 「container」エレメントはindex.htmにあるdivタグに名前をつけてあり、rendered.jsでp5jsのインスタンスを登録してあります。
 
