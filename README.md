@@ -8,19 +8,17 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 
 
 - renderer.jsにはp5jsのコードがあります。
-- osc送信するには、preload.jsにある関数を間接的に呼び出して使います。
-
+- osc送信する
 ```javascript:rendere.js
-        // OSCのAPI(preload.jsでcontextBridgeとして定義)
-        const oscAPI = window.oscAPI;
-        // OSCデータを送信する
-        oscAPI.send('/test', [p.mouseX, p.mouseY]);
+    // OSCのAPI(preload.jsでcontextBridgeとして定義)
+    const oscAPI = window.oscAPI;
+    // OSCデータを送信する
+    oscAPI.send('/test', [p.mouseX, p.mouseY]);
 ```
 
-- osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにあるので、そこからrenderer.jsに受信したメッセージを送ります。
-
+- osc受信する
 ```javascript:rendere.js
-    // OSCデータを受信する
+    // OSCデータを受信すると呼ばれる関数
     p.oscReceive = (msg) => {
         // OSCのAPI(preload.jsでcontextBridgeとして定義)
         const oscAPI = window.oscAPI;

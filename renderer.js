@@ -28,7 +28,7 @@ const s = (p) => {
         p.ellipse(x, y, 100, 100);
     }
 
-    // OSCデータを受信する
+    // OSCデータを受信すると呼ばれる関数
     p.oscReceive = (msg) => {
         // OSCのAPI(preload.jsでcontextBridgeとして定義)
         const oscAPI = window.oscAPI;
