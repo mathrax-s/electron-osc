@@ -7,9 +7,9 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 ここにあるソースは、preload.jsで動作するnode-oscを、renderer.jsで使えるようにしたものです。まだ試作中で、効率が悪いかもしれません。
 
 
-renderer.jsにはp5jsのコードがあります。
-osc送信するには、preload.jsにある関数を間接的に呼び出して使います。
-osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにあるので、そこからrenderer.jsに受信したメッセージを送ります。このとき、「container」とID名のついたエレメントを指定して、renderer.jsにアクセスしていますが、このID名のついたDIVタグがindex.htmlの中にあります。（少し散漫なのでもう少し改善したいです）
+- renderer.jsにはp5jsのコードがあります。
+- osc送信するには、preload.jsにある関数を間接的に呼び出して使います。
+- osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにあるので、そこからrenderer.jsに受信したメッセージを送ります。
 
 <img src = "screen_capture_1.png"></img>
 
