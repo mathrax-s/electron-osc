@@ -12,7 +12,8 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 画面にマウスについてくる円が表示されますが、
 これはOSCで送信したマウスの座標を、自分で受けとって円の座標にしています。
 
-## renderer.jsから、preload.jsへ送信する場合
+## OSCデータを送信する場合
+### renderer.jsから、preload.jsへ送信する
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
 
 ~~~preload.js
