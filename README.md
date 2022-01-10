@@ -38,7 +38,16 @@ preload.jsであれば、requireが使えるので、contextBridgeという方�
 
 ## OSCデータを送信する場合
 ### renderer.jsから、preload.jsへ送信する
-contextBridge経由で、「oscAPI」の「send」を呼び出す。
+
+renderer.js内のp5jsでは以下のように書いています。
+
+```javascript:rendere.js
+    // OSCのAPI(preload.jsでcontextBridgeとして定義)
+    const oscAPI = window.oscAPI;
+    // OSCデータを送信する
+    oscAPI.send('/test', [p.mouseX, p.mouseY]);
+```
+contextBridge経由で、preload.js内「oscAPI」の「send」を呼び出しています。
 
 以下、preload.jsの中です。
 
@@ -61,7 +70,23 @@ contextBridge.exposeInMainWorld(
 
 ## OSCデータを受信する場合
 ### preload.jsから、renderer.jsへ送信する
-こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
+
+renderer.js内のp5jsでは以下のように書いています。
+
+```javascript:rendere.js
+    // OSCデータを受信すると呼ばれる関数
+    p.oscReceive = (msg) => {
+        // OSCのAPI(preload.jsでcontextBridgeとして定義)
+        const oscAPI = window.oscAPI;
+        // OSCアドレスが一致する場合、dataが入る
+        let data = oscAPI.receive("/test", msg);
+        x = data[0];
+        y = data[1];
+        // console.log(data);
+    }
+```
+
+これはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
 preload.js、renderer.js、index.htmlの3つのファイルが関係しています。
 
 以下、preload.jsの中です。
