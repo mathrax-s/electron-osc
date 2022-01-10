@@ -61,7 +61,7 @@ oscServer.on('message', function (msg) {
 });
 ~~~
 
-renderer.jsの中です。
+以下、renderer.jsの中です。
 
 ~~~javascript:renderer.js
 
@@ -91,7 +91,6 @@ container.addEventListener("osc_rcv", (event) => {
 
 ~~~
 
-### p5jsインスタンスを「container」に追加しておく
 
 index.htmlで、bodyのdivタグにID名「container」とつけてあります。
 
