@@ -11,7 +11,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-const { contextBridge, ipcRenderer } = require('electron')
 
 const { Server, Client, Message } = require('node-osc');
 
@@ -28,7 +27,7 @@ oscServer.on('message', function (msg) {
   }));
 });
 
-
+const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld(
   "oscAPI", {
   send: (_address, _data) => {

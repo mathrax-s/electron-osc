@@ -15,6 +15,29 @@ Electron v12 からセキュリティが安全になった代わりに、rendere
 ## renderer.jsから、preload.jsへ送信する場合
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
 
+~~~preload.js
+const { contextBridge, ipcRenderer } = require('electron')
+contextBridge.exposeInMainWorld(
+  "oscAPI", {
+  send: (_address, _data) => {
+    const message = new Message(_address);
+    for (let i = 0; i < _data.length; i++) {
+      message.append(_data[i]);
+    }
+    client.send(message);
+  },
+  receive: (_address, _msg) => {
+    let res = [];
+    if (_msg[0] === _address) {
+      for (let i = 0; i < (_msg.length - 1); i++) {
+        res[i] = _msg[i + 1];
+      }
+    }
+    return res;
+  }
+})
+~~~
+
 ## preload.jsから、renderer.jsへ送信する場合
 こちらはcontextBridgeではなく、node-oscのOSC受信時で呼ばれる関数で、renderer.jsへ値を渡しています。
 
