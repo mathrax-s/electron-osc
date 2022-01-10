@@ -4,9 +4,10 @@ Electron v12 からセキュアになった代わりに、rendered.jsで、requi
 
 preload.jsであれば、requireが使えるので、contextBridgeという方法でrenderer.jsから間接的に使います。
 
-ここにあるソースは、preload.jsで動作するnode-oscを、renderer.jsで使えるようにしたものです。まだ試作中で、効率が悪いかもしれません。
+ここにあるソースは、preload.jsで動作する「node-osc」を、renderer.jsで使えるようにしたものです。まだ試作中で、効率が悪いかもしれません。
 
 
+- node-oscをインストールしてください。
 - renderer.jsにはp5jsのコードがあります。
 - osc送信する
 ```javascript:rendere.js
