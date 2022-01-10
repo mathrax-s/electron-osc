@@ -1,12 +1,9 @@
 # electron-osc
 
-Electron v12 からセキュリティが安全になった代わりに、rendered.jsで、requireなどが使えなくなり、preload.jsでrequireを使って、それをcontextBridgeという方法で間接的に使うようになりました。
+Electron v12 からセキュリティが安全になった代わりに、rendered.jsで、requireなどが使えなくなりました。
 
-preload.jsで動作するnode-oscを、renderer.jsで使えるようにしたものです。
+そこで、preload.jsでrequireを使って、それをcontextBridgeという方法で、renderer.jsから間接的に使います。
 
-まだ試作中で、効率が悪いかもしれません。
+ここにあるソースは、preload.jsで動作するnode-oscを、renderer.jsで使えるようにしたものです。まだ試作中で、効率が悪いかもしれません。
 
 
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
