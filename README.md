@@ -20,8 +20,9 @@ osc受信するには、OSC受信時に呼ばれる関数がpreload.jsにある�
 ## OSCデータを送信する場合
 ### renderer.jsから、preload.jsへ送信する
 contextBridge経由で、「oscAPI」の「send」を呼び出す。
-
+:::note info
 preload.js
+:::
 ~~~javascript:preload.js
 const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld(
