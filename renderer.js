@@ -53,3 +53,11 @@ container.addEventListener("osc_rcv", (event) => {
     app.oscReceive(event.detail.oscMsg);
 });
 
+// OSC受信イベントをセットする
+// (preload.jsでcontextBridge)
+// 2022.02.05 
+// タイミングによって「container」が準備できる前に、
+// イベントをセットしようとしてエラーになることがあり、
+// renderer.jsから呼び出すことにした
+window.oscAPI.setEvent();
+
